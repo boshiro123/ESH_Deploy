@@ -1,0 +1,34 @@
+version: '3.5'
+
+services:
+ db:
+#   restart: always
+   image: postgres:15.2
+   container_name: skill_hub_db
+   environment:
+     POSTGRES_USER: root
+     POSTGRES_PASSWORD: root
+     POSTGRES_DB: skill_hub_db
+   volumes:
+    - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+   ports:
+     - 6789:5432
+ redis:
+     image: redis:6.2-alpine
+     container_name: redis_db
+   #     restart: always
+     ports:
+       - '6379:6379'
+     command: redis-server --save 60 1 --loglevel warning --requirepass root
+#     volumes:
+#       - ./data:/data
+ app:
+   container_name: ESH_APP
+   build: .
+   ports:
+     - 8080:8080
+   depends_on:
+     - db
+     - redis
+   environment:
+     SPRING_DATASOURCE_URL: 'jdbc:postgresql://db:5432/skill_hub_db'
