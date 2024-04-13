@@ -24,6 +24,7 @@ services:
 #       - ./data:/data
  app:
    container_name: ESH_APP
+   image: boshiro2345/esh_app_deploy:v2
    build: .
    ports:
      - 8080:8080
