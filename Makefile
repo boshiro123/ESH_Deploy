@@ -27,3 +27,9 @@ delete:
 
 ps:
 	docker compose ps
+
+psql:
+	docker exec -it 16edf4f41506 psql -U root -d skill_hub_db
+
+redis-cli:
+	docker exec -it 6992ea431793 redis-cli -a root
