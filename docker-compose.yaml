@@ -20,8 +20,9 @@ services:
      ports:
        - '6379:6379'
      command: redis-server --save 60 1 --loglevel warning --requirepass root
-#     volumes:
-#       - ./data:/data
+     volumes:
+       - $PWD/redis-data:/var/lib/redis
+       - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
  app:
    container_name: ESH_APP
    image: boshiro2345/esh_app_deploy:latest
