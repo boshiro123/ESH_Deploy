@@ -19,9 +19,11 @@ services:
    restart: always
    ports:
      - '6379:6379'
-   command: redis-server --loglevel warning --requirepass root
+   command: redis-server /usr/local/etc/redis/redis.conf --requirepass root
    volumes:
-     - redis_data:/data
+     - ./redis-data:/data
+     - ./redis.conf:/usr/local/etc/redis/redis.conf
+
  app:
    container_name: ESH_APP
    image: boshiro2345/esh_app_deploy:latest
